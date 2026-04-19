@@ -149,13 +149,7 @@ stack 段参数为：
 - size = 256KB = 0x40000
 - positive = 0
 
-positive = 0 表示该段向低地址增长，所以：
-
-$$
-PA = base - size + offset
-$$
-
-代入得：
+有
 
 $$
 PA = 0x100000 - 0x40000 + 0x1300 = 0xC1300
@@ -218,18 +212,11 @@ $$
 
 可知：
 
-- 页内偏移 VPO = 6 bit
+- VPO = 6 bit
 - 每张页表有 64 / 2 = 32 个表项，所以每级索引都是 5 bit
-- 虚拟地址划分为：5 bit 一级索引 + 5 bit 二级索引 + 6 bit 页内偏移
-
-页目录基址：
-
-- Process 1：0x0100，用户态
-- Process 2：0x0180，内核态
+- 虚拟地址划分为 5 bit 一级索引 + 5 bit 二级索引 + 6 bit 页内偏移
 
 ### 1. Process 1 writes to 0xC1B2
-
-先分解虚拟地址：
 
 - 一级索引：0x18
 - 二级索引：0x06
@@ -258,9 +245,7 @@ $$
 - W = 1
 - U = 1
 
-由于题目中 PDE 只有 Present 位，不能从 0x2101 中读出 U/W 权限；真正的访问权限应由 PTE 决定。
-
-这里 PTE = 0x3A47，其低三位为 111，因此该页 present、writable、user accessible。
+PTE = 0x3A47，低三位为 111，因此该页 present、writable、user accessible。
 
 Process 1 处于用户态，执行写访问，权限满足，故访问成功。
 
@@ -270,7 +255,7 @@ $$
 PA = 0x3A40 + 0x32 = 0x3A72
 $$
 
-结论：
+因此：
 
 - Address of PDE: 0x0130
 - Address of PTE: 0x210C
@@ -279,7 +264,7 @@ $$
 
 ### 2. Process 2 writes to 0x728F
 
-先分解虚拟地址：
+分解虚拟地址：
 
 - 一级索引：0x0E
 - 二级索引：0x0A
