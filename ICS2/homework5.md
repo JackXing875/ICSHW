@@ -111,7 +111,7 @@ $$
 
 程序中的数据结构所在段如下：
 
-- main 函数、代码本身、字符串常量 "s=%#X\n" 和 "test.txt" 在 code 段
+- `main` 函数、代码本身、字符串常量 `"s=%#X\n"` 和 `"test.txt"` 在 code 段
 - 全局变量 a、b 在 data 段
 - 局部变量 idx、fd 和局部数组 s[128*1024] 在 stack 段
 - 没有使用 heap
